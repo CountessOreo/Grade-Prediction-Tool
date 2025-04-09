@@ -2,7 +2,7 @@
 
 **BrightPath Academy Student Success Project**
 
- ** About BrightPath Academy**
+ **About BrightPath Academy**
     Located in a bustling urban area, BrightPath Academy is a progressive secondary school. 
     The school encourages not only academic achievement but also extracurricular activity and personal development because it is dedicated to both academic excellence and holistic development.
 
