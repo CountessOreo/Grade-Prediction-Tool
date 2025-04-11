@@ -22,7 +22,13 @@
 
   **Problem Statement**
     
-    Use machine learning to identify at-risk students early and provide specialized interventions.
+    BrightPath Academy is commited to academic and personal excellence, it however is struggling to proactively support students who may fall behind. 
+    The system that is currently in use lacks a timely mechanism that identifies learners who are at risk, which leads to the failure of being able to identify oppurtunites for intervention.
+
+    The interventions are also not unique and are more generic, which serves as a problem as different students will require different needs. The educators also do not have access to a tool that will allow them to process the large volumes of data. 
+
+    This project aims to leverage machine learning to not only be able to predict students who are at risk, but to also uncover patterns that will provide personalized and effective support strategies for the students. 
+    This will assist the academy to make data-driven decisions that will enhance the academic outcomes, optimize resource allocation and to improve the well-beng of the students.
 
   **Hypothesis**
 
