@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BrightPath Academy: Student Performance Dashboard</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.min.js"></script>
+    <!-- Custom CSS -->
+    <style>
+        body {
+            background-color: #f4f7fc;
+            font-family: 'Inter', sans-serif;
+        }
+        .sidebar {
+            background-color: #1e3a8a;
+            color: white;
+            height: 100vh;
+            padding: 20px;
+            position: fixed;
+            width: 250px;
+        }
+        .sidebar h3 {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+        }
+        .sidebar a {
+            color: white;
+            text-decoration: none;
+            display: block;
+            padding: 10px 0;
+        }
+        .sidebar a:hover {
+            background-color: #3b82f6;
+            border-radius: 5px;
+        }
+        .main-content {
+            margin-left: 270px;
+            padding: 20px;
+        }
+        .card {
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+        .form-control, .form-select {
+            border-radius: 8px;
+            padding: 12px;
+        }
+        .btn-primary {
+            background-color: #3b82f6;
+            border: none;
+            border-radius: 8px;
+            padding: 12px;
+            font-weight: 600;
+        }
+        .btn-primary:hover {
+            background-color: #1e40af;
+        }
+        canvas {
+            max-height: 300px;
+        }
+        .recommendation {
+            background-color: #fef3c7;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <h3>BrightPath Academy</h3>
+        <a href="#dashboard">Dashboard</a>
+        <a href="#predict">Predict Math Score</a>
+        <a href="#risk">At-Risk Students</a>
+        <a href="#trends">Performance Trends</a>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Dashboard Overview -->
+        <section id="dashboard">
+            <h1 class="mb-4">Student Performance Dashboard</h1>
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="card p-3">
+                        <h5>Average GPA</h5>
+                        <p class="fs-3">3.12</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card p-3">
+                        <h5>At-Risk Students</h5>
+                        <p class="fs-3">245</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card p-3">
+                        <h5>Average Absences</h5>
+                        <p class="fs-3">14.5</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card p-3">
+                        <h5>Tutoring Participation</h5>
+                        <p class="fs-3">32%</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Prediction Form -->
+        <section id="predict" class="mt-5">
+            <div class="card p-4">
+                <h2 class="mb-4">Predict Math Score</h2>
+                <form action="{{ url_for('predict_datapoint')}}" method="post">
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Gender</label>
+                            <select class="form-select" name="gender" required>
+                                <option selected disabled>Select Gender</option>
+                                <option value="male">Male</option>
+                                <option value="female">Female</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Ethnicity</label>
+                            <select class="form-select" name="ethnicity" required>
+                                <option selected disabled>Select Ethnicity</option>
+                                <option value="group A">Caucasian</option>
+                                <option value="group B">African American</option>
+                                <option value="group C">Asian</option>
+                                <option value="group D">Other</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Parental Education</label>
+                            <select class="form-select" name="parental_level_of_education" required>
+                                <option selected disabled>Select Education</option>
+                                <option value="none">None</option>
+                                <option value="high school">High School</option>
+                                <option value="some college">Some College</option>
+                                <option value="bachelor's degree">Bachelor's</option>
+                                <option value="higher">Higher</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Lunch Type</label>
+                            <select class="form-select" name="lunch" required>
+                                <option selected disabled>Select Lunch Type</option>
+                                <option value="free/reduced">Free/Reduced</option>
+                                <option value="standard">Standard</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Test Preparation Course</label>
+                            <select class="form-select" name="test_preparation_course" required>
+                                <option selected disabled>Select Course</option>
+                                <option value="none">None</option>
+                                <option value="completed">Completed</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Study Time (Weekly Hours)</label>
+                            <input type="number" class="form-control" name="study_time_weekly" placeholder="Enter hours (0-20)" min="0" max="20" required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Reading Score (0-100)</label>
+                            <input type="number" class="form-control" name="reading_score" placeholder="Enter score" min="0" max="100" required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Writing Score (0-100)</label>
+                            <input type="number" class="form-control" name="writing_score" placeholder="Enter score" min="0" max="100" required>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100">Predict Math Score</button>
+                </form>
+                {% if results %}
+                <div class="recommendation">
+                    <h4>Prediction Result</h4>
+                    <p>Predicted Math Score: {{ results }}</p>
+                    {% if results < 60 %}
+                    <p><strong>Recommendation:</strong> Consider enrolling in a tutoring program and increasing weekly study time.</p>
+                    {% endif %}
+                </div>
+                {% endif %}
+            </div>
+        </section>
+
+        <!-- At-Risk Students -->
+        <section id="risk" class="mt-5">
+            <div class="card p-4">
+                <h2 class="mb-4">At-Risk Students</h2>
+                <div class="mb-3">
+                    <label class="form-label">Filter by GPA</label>
+                    <select class="form-select" id="gpaFilter">
+                        <option value="all">All</option>
+                        <option value="below2">Below 2.0 (F)</option>
+                        <option value="below2.5">Below 2.5 (D or F)</option>
+                    </select>
+                </div>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Student ID</th>
+                            <th>GPA</th>
+                            <th>Grade Class</th>
+                            <th>Absences</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="riskTable">
+                        <!-- Populated dynamically via JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Performance Trends -->
+        <section id="trends" class="mt-5">
+            <div class="card p-4">
+                <h2 class="mb-4">Performance Trends</h2>
+                <div class="row">
+                    <div class="col-md-6">
+                        <canvas id="gpaVsStudyTime"></canvas>
+                    </div>
+                    <div class="col-md-6">
+                        <canvas id="gradeDistribution"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom JavaScript -->
+    <script>
+        // Sample data (replace with Flask-provided JSON in production)
+        const students = [
+            { StudentID: 1001, GPA: 2.92, GradeClass: 'C', Absences: 7 },
+            { StudentID: 1003, GPA: 0.11, GradeClass: 'F', Absences: 26 },
+            // Add more data from dataset
+        ];
+
+        // Populate at-risk table
+        function updateRiskTable(filter = 'all') {
+            const tbody = document.getElementById('riskTable');
+            tbody.innerHTML = '';
+            students.forEach(student => {
+                if (filter === 'below2' && student.GPA >= 2.0) return;
+                if (filter === 'below2.5' && student.GPA >= 2.5) return;
+                const row = `
+                    <tr>
+                        <td>${student.StudentID}</td>
+                        <td>${student.GPA.toFixed(2)}</td>
+                        <td>${student.GradeClass}</td>
+                        <td>${student.Absences}</td>
+                        <td><button class="btn btn-sm btn-primary">Suggest Tutoring</button></td>
+                    </tr>
+                `;
+                tbody.innerHTML += row;
+            });
+        }
+
+        // GPA vs Study Time Chart
+        new Chart(document.getElementById('gpaVsStudyTime'), {
+            type: 'scatter',
+            data: {
+                datasets: [{
+                    label: 'GPA vs Study Time',
+                    data: [
+                        { x: 19.83, y: 2.92 },
+                        { x: 15.40, y: 3.04 },
+                        // Add more from dataset
+                    ],
+                    backgroundColor: '#3b82f6'
+                }]
+            },
+            options: {
+                scales: {
+                    x: { title: { display: true, text: 'Study Time (Hours/Week)' } },
+                    y: { title: { display: true, text: 'GPA' } }
+                }
+            }
+        });
+
+        // Grade Distribution Chart
+        new Chart(document.getElementById('gradeDistribution'), {
+            type: 'bar',
+            data: {
+                labels: ['A', 'B', 'C', 'D', 'F'],
+                datasets: [{
+                    label: 'Grade Distribution',
+                    data: [50, 100, 150, 120, 200], // Replace with actual counts
+                    backgroundColor: '#3b82f6'
+                }]
+            },
+            options: {
+                scales: {
+                    y: { beginAtZero: true, title: { display: true, text: 'Number of Students' } }
+                }
+            }
+        });
+
+        // Filter event listener
+        document.getElementById('gpaFilter').addEventListener('change', (e) => {
+            updateRiskTable(e.target.value);
+        });
+
+        // Initial table load
+        updateRiskTable();
+    </script>
+</body>
+</html>
