@@ -32,11 +32,10 @@
 
   **Hypothesis**
   
-Students with a higher absenteesim are predicted to have a lower GPA. 
+Students with a higher absenteesim are predicted to have a much lower GPA than of students who have a lower absenteesim rate.
 We hypothesize that for every increase in the number of absences, a student's GPA will decrease.
 Additionally, students who have a higher study time are more likely to have a higher GPA despite being absent.
-We also predict that the students with parental support and those who receive tutoring are more likely to have  higher GPA, even if they have a higher absenteesim number, which suggests that the interventions of parents and tutoring are able to mitigate the negative effect that absenteesim has on the academic performance.
-
+We also predict that the students with parental support and those who receive tutoring are more likely to have  higher GPA, even if they have a higher absenteesim rate, which suggests that the interventions of parents and tutoring are able to mitigate the negative effect that absenteesim has on the academic performance
 
   **Key Outcomes**
     
