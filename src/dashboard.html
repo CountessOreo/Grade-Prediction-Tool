@@ -6,6 +6,8 @@
     <title>BrightPath Academy: Student Performance Dashboard</title>
     <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.min.js"></script>
     <!-- Custom CSS -->
@@ -69,23 +71,115 @@
             border-radius: 8px;
             margin-top: 20px;
         }
+        #loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: #1e3a8a;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            z-index: 9999;
+            font-family: 'Inter', sans-serif;
+            transition: opacity 0.5s ease;
+        }
+        .loading-text {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+        .progress-bar {
+            width: 300px;
+            height: 20px;
+            background-color: #ffffff33;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        .progress {
+            height: 100%;
+            width: 0;
+            background-color: #facc15;
+            transition: width 0.1s ease-in-out;
+        }
+        /* Position the iframe to cover the entire background */
+            .background-video-container {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                z-index: -1; /* Send the video behind the content */
+            }
+
+            /* Ensure the video takes the whole screen */
+            #background-video {
+                width: 120%;
+                height: 120%;
+                object-fit: cover; /* Ensures the video covers the entire background area */
+            }
+            /* Style for the fixed box */
+.fixed-box {
+    position: fixed;  /* Fixed position so it stays at the top */
+    top: 20px;  /* Adjust top space from the top of the screen */
+    width: 65%;
+    height: 10%;
+    left: 60%;  /* Center the box horizontally */
+    transform: translateX(-50%); /* Correct centering with transform */
+    background-color: white;  /* White background */
+    padding: 20px 40px;  /* Add padding inside the box */
+    border-radius: 15px;  /* Rounded corners */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Light shadow around the box */
+    z-index: 10;  /* Ensure it stays on top */
+    text-align: center;  /* Center the text inside the box */
+}
+
+/* Optional: Style the heading */
+.fixed-box h1 {
+    margin: 0; /* Remove default margin from h1 */
+    font-size: 2em; /* Adjust size of the heading */
+}
     </style>
 </head>
 <body>
+    <div id="loading-screen">
+        <div class="loading-text">BrightPath Academy</div>
+        <div class="progress-bar">
+            <div class="progress" id="progressBar"></div>
+        </div>
+    </div>
     <!-- Sidebar -->
     <div class="sidebar">
-        <h3>BrightPath Academy</h3>
-        <a href="#dashboard">Dashboard</a>
-        <a href="#predict">Predict Math Score</a>
-        <a href="#risk">At-Risk Students</a>
-        <a href="#trends">Performance Trends</a>
+        <br><br>
+        <center><h3>BrightPath Academy</h3></center>
+        <br><br>
+        <br><br>
+        <center>
+        <a href="#dashboard"><i class="bi bi-speedometer2 me-2"></i>Dashboard</a>
+        <a href="#predict"><i class="bi bi-calculator me-2"></i>Predict Math Score</a>
+        <a href="#risk"><i class="bi bi-exclamation-triangle me-2"></i>At-Risk Students</a>
+        <a href="#trends"><i class="bi bi-bar-chart-line me-2"></i>Performance Trends</a>
+    </center>
+        <br><br><br><br>
+        <center><img src="logo.png" style="width: 40%; height: auto; border-radius: 12px;"></center>
     </div>
 
     <!-- Main Content -->
     <div class="main-content">
+        <div class="background-video-container">
+            <!-- Embed YouTube Video -->
+            <iframe id="background-video" src="https://www.youtube.com/embed/U1-tNfr9P8k?autoplay=1&loop=1&playlist=U1-tNfr9P8k&mute=1&controls=0&showinfo=0&rel=0" 
+                frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
+        </div>
         <!-- Dashboard Overview -->
         <section id="dashboard">
-            <h1 class="mb-4">Student Performance Dashboard</h1>
+            <div class="fixed-box">
+                <center><h1 class="mb-4">Student Performance Dashboard</h1></center>
+            </div>
+            <br><br><br><br><br>
             <div class="row">
                 <div class="col-md-3">
                     <div class="card p-3">
@@ -113,6 +207,8 @@
                 </div>
             </div>
         </section>
+
+        <center><img src="logo.png" style="width: 40%; height: auto; border-radius: 12px;"></center>
 
         <!-- Prediction Form -->
         <section id="predict" class="mt-5">
@@ -185,7 +281,75 @@
                             <input type="number" class="form-control" name="GPA" placeholder="Enter GPA" min="2.0" max="4.0" step="0.1">
                         </div>
                         <div class="col-md-6 mb-4">
-                            <div class="p-3 border rounded bg-light shadow-sm" style="max-width: 100%; width: fit-content;">
+                            <div class="row">
+                                <!-- Left Column -->
+                                <div class="col-md-6 mb-4">
+                                  <div class="p-3 border rounded bg-light shadow-sm w-100">
+                                    <h6 class="mb-3">Extracurricular Activities</h6>
+                                    <div class="mb-2">
+                                      <label class="form-label d-block mb-1">Extracurricular:</label>
+                                      <div class="d-flex gap-3">
+                                        <div class="form-check">
+                                          <input class="form-check-input" type="radio" name="extracurricular" id="extracurricularYes" value="Yes" required>
+                                          <label class="form-check-label" for="extracurricularYes">Yes</label>
+                                        </div>
+                                        <div class="form-check">
+                                          <input class="form-check-input" type="radio" name="extracurricular" id="extracurricularNo" value="No" required>
+                                          <label class="form-check-label" for="extracurricularNo">No</label>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div>
+                                      <label class="form-label d-block mb-1">Sports:</label>
+                                      <div class="d-flex gap-3">
+                                        <div class="form-check">
+                                          <input class="form-check-input" type="radio" name="sports" id="sportsYes" value="Yes" required>
+                                          <label class="form-check-label" for="sportsYes">Yes</label>
+                                        </div>
+                                        <div class="form-check">
+                                          <input class="form-check-input" type="radio" name="sports" id="sportsNo" value="No" required>
+                                          <label class="form-check-label" for="sportsNo">No</label>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              
+                                <!-- Right Column -->
+                                <div class="col-md-6 mb-4">
+                                  <div class="p-3 border rounded bg-light shadow-sm w-100">
+                                    <h6 class="mb-3">Extracurricular Activities</h6>
+                                    <div class="mb-2">
+                                      <label class="form-label d-block mb-1">Music:</label>
+                                      <div class="d-flex gap-3">
+                                        <div class="form-check">
+                                          <input class="form-check-input" type="radio" name="music" id="musicYes" value="Yes" required>
+                                          <label class="form-check-label" for="musicYes">Yes</label>
+                                        </div>
+                                        <div class="form-check">
+                                          <input class="form-check-input" type="radio" name="music" id="musicNo" value="No" required>
+                                          <label class="form-check-label" for="musicNo">No</label>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div>
+                                      <label class="form-label d-block mb-1">Volunteering:</label>
+                                      <div class="d-flex gap-3">
+                                        <div class="form-check">
+                                          <input class="form-check-input" type="radio" name="volunteering" id="volunteeringYes" value="Yes" required>
+                                          <label class="form-check-label" for="volunteeringYes">Yes</label>
+                                        </div>
+                                        <div class="form-check">
+                                          <input class="form-check-input" type="radio" name="volunteering" id="volunteeringNo" value="No" required>
+                                          <label class="form-check-label" for="volunteeringNo">No</label>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              
+                            <!-- <div class="p-3 border rounded bg-light shadow-sm" style="max-width: 100%; width: fit-content;">
                                 <h6 class="mb-3">Extracurricular Activities</h6>
                                 <div class="mb-2">
                                     <label class="form-label d-block mb-1">Extracurricular Activities:</label>
@@ -239,7 +403,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                     <button type="submit" class="btn btn-primary w-100">Predict Math Score</button>
@@ -305,6 +469,24 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Custom JavaScript -->
     <script>
+        //loading js
+        let progress = 0;
+        const progressBar = document.getElementById('progressBar');
+        const loadingScreen = document.getElementById('loading-screen');
+
+        function simulateLoading() {
+            const interval = setInterval(() => {
+                progress += 1;
+                progressBar.style.width = `${progress}%`;
+                if (progress >= 100) {
+                    clearInterval(interval);
+                    loadingScreen.style.opacity = '0';
+                    setTimeout(() => loadingScreen.style.display = 'none', 500);
+                }
+            }, 20);
+        }
+
+        document.addEventListener('DOMContentLoaded', simulateLoading);
         // Sample data (replace with Flask-provided JSON in production)
         const students = [
             { StudentID: 1001, GPA: 2.92, GradeClass: 'C', Absences: 7 },
