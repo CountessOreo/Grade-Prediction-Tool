@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>BrightPath Academy - Predict Math Score</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}"/>
+</head>
+<body>
+  <!-- Site Header -->
+  <header class="site-header">
+    <div class="header-container">
+      <h1 class="header-title">BrightPath Academy</h1>
+      <p class="header-tagline">Empowering Every Learner’s Journey</p>
+    </div>
+  </header>
+
+  <!-- Prediction Section -->
+  <section id="predict" class="section-container">
+    <div class="card-container">
+      <h2 class="section-title">Predict Grade Class</h2>
+
+      <form id="predict-form" method="POST" action="{{ url_for('predict') }}">
+        <div class="form-grid">
+          <!-- inputs as before -->
+          <!-- 1. Study Time -->
+          <div class="form-group">
+            <label for="study_time_weekly" class="label-text">Study Time (Weekly Hours)</label>
+            <input type="number" id="study_time_weekly" name="study_time_weekly" class="input-field" min="0" max="20" required />
+          </div>
+          <!-- 2. Absences -->
+          <div class="form-group">
+            <label for="absences" class="label-text">Absences</label>
+            <input type="number" id="absences" name="absences" class="input-field" min="0" max="30" required />
+          </div>
+          <!-- 3. Tutoring Status -->
+          <div class="form-group">
+            <span class="label-text">Tutoring Status</span>
+            <div class="radio-group">
+              <label class="radio-option"><input type="radio" name="tutoring_status" value="Yes" required/> Yes</label>
+              <label class="radio-option"><input type="radio" name="tutoring_status" value="No"/> No</label>
+            </div>
+          </div>
+          <!-- 4. Parental Involvement -->
+          <div class="form-group">
+            <label for="parental_involvement" class="label-text">Parental Involvement</label>
+            <select id="parental_involvement" name="parental_involvement" class="select-field" required>
+              <option disabled selected>Select level</option>
+              <option value="0">None</option>
+              <option value="1">Low</option>
+              <option value="2">Moderate</option>
+              <option value="3">High</option>
+              <option value="4">Very High</option>
+            </select>
+          </div>
+          <!-- 5. Extracurricular -->
+          <div class="form-group">
+            <span class="label-text">Extracurricular Activities?</span>
+            <div class="radio-group">
+              <label class="radio-option"><input type="radio" name="extracurricular" value="Yes" required/> Yes</label>
+              <label class="radio-option"><input type="radio" name="extracurricular" value="No"/> No</label>
+            </div>
+          </div>
+          <!-- 6. Sport -->
+          <div class="form-group">
+            <span class="label-text">Participating in Sports?</span>
+            <div class="radio-group">
+              <label class="radio-option"><input type="radio" name="sport" value="Yes" required/> Yes</label>
+              <label class="radio-option"><input type="radio" name="sport" value="No"/> No</label>
+            </div>
+          </div>
+          <!-- 7. Music -->
+          <div class="form-group">
+            <span class="label-text">Participating in Music?</span>
+            <div class="radio-group">
+              <label class="radio-option"><input type="radio" name="music" value="Yes" required/> Yes</label>
+              <label class="radio-option"><input type="radio" name="music" value="No"/> No</label>
+            </div>
+          </div>
+        </div>
+        <button type="submit" class="submit-button">Predict GradeClass</button>
+      </form>
+
+      {% if results is not none %}
+      <div class="alert-box">
+        <h4 class="result-text">Predicted Grade Class: {{ results }}</h4>
+      </div>
+      {% endif %}
+    </div>
+  </section>
+
+  <!-- Site Footer -->
+  <footer class="site-footer">
+    <div class="footer-container">
+      <p>&copy; 2025 BrightPath Academy. All rights reserved.</p>
+      <p>Contact us: info@brightpath.academy | +1 (555) 123-4567</p>
+    </div>
+  </footer>
+
+  <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
