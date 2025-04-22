@@ -57,6 +57,7 @@ We hypothesize that parental education level will positively correlate with stud
  **Final Prediction:**
  
 By evaluating the feature importance scores across the models, we expect absenteeism to have the greatest negative influence on grade classification, while tutoring will have the greatest positive influence. Study time and parental support will also be important factors, with tutoring and parental support buffering against the negative effects of absenteeism. Features like age, ethnicity, and gender are likely to have the least impact on the model's predictions.
+
   **Key Outcomes**
     
     1. Early detection of at-risk students
